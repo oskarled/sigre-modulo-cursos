@@ -1,0 +1,21 @@
+# Compilados
+target/
+*.class
+*.jar
+*.war
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# Sistema y logs
+.DS_Store
+Thumbs.db
+*.log
+
+# Variables locales con credenciales
+.env
