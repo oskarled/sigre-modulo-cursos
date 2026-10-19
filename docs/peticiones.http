@@ -1,0 +1,90 @@
+### Ejemplos de peticiones para probar la API.
+### Se ejecutan con la extension "REST Client" de VS Code (o se copian a Postman).
+### Requisito: arrancar con el perfil dev (datos de demostracion):
+###   instructor id = 1 | asistentes id = 3 (Maria Perez) y id = 4 (Juan Gomez)
+### Importante: la fechaInicio debe ser FUTURA; ajuste las fechas si ya pasaron.
+
+### 1. Crear un curso (HU-05) -> 201 Created
+POST http://localhost:8080/api/cursos
+Content-Type: application/json
+
+{
+  "nombreCurso": "Trabajo en Alturas",
+  "duracionHoras": 40,
+  "fechaInicio": "2027-03-01T08:00:00",
+  "fechaFin": "2027-03-05T17:00:00",
+  "lugar": "Pista de entrenamiento E.C.M.",
+  "cupoMaximo": 2,
+  "idInstructor": 1
+}
+
+### 2. Listar y buscar cursos (HU-08) -> 200 OK
+GET http://localhost:8080/api/cursos
+
+### 3. Buscar por nombre, lugar, rango de fechas y estado
+GET http://localhost:8080/api/cursos?nombre=alturas&lugar=pista&desde=2027-01-01&hasta=2027-12-31&estado=PROGRAMADO
+
+### 4. Detalle de un curso (incluye aforo disponible)
+GET http://localhost:8080/api/cursos/1
+
+### 5. Editar un curso (HU-06) -> 200 OK
+PUT http://localhost:8080/api/cursos/1
+Content-Type: application/json
+
+{
+  "nombreCurso": "Trabajo en Alturas - Avanzado",
+  "duracionHoras": 40,
+  "fechaInicio": "2027-03-01T08:00:00",
+  "fechaFin": "2027-03-05T17:00:00",
+  "lugar": "Pista de entrenamiento E.C.M.",
+  "cupoMaximo": 2,
+  "idInstructor": 1
+}
+
+### 6. Inscribir a Maria Perez (HU-09) -> 201 Created
+POST http://localhost:8080/api/cursos/1/inscripciones
+Content-Type: application/json
+
+{ "idUsuario": 3 }
+
+### 7. Inscribir a Juan Gomez -> 201 Created (el curso queda sin cupos)
+POST http://localhost:8080/api/cursos/1/inscripciones
+Content-Type: application/json
+
+{ "idUsuario": 4 }
+
+### 8. Control de aforo: una tercera inscripcion -> 409 Conflict (sin cupos)
+###    (repetir la peticion 6 con otro usuario, o la misma para ver "ya esta inscrito")
+POST http://localhost:8080/api/cursos/1/inscripciones
+Content-Type: application/json
+
+{ "idUsuario": 3 }
+
+### 9. Ver los asistentes inscritos en un curso (RF-05)
+GET http://localhost:8080/api/cursos/1/inscripciones
+
+### 10. Ver mis inscripciones (HU-11)
+GET http://localhost:8080/api/usuarios/3/inscripciones
+
+### 11. Cancelar una inscripcion (HU-10) -> 200 OK, libera el cupo
+PATCH http://localhost:8080/api/inscripciones/1/cancelar
+
+### 12. Cancelar (deshabilitar) un curso
+PATCH http://localhost:8080/api/cursos/1/cancelar
+
+### 13. Eliminar un curso que no ha iniciado (HU-07) -> 204 No Content
+DELETE http://localhost:8080/api/cursos/1
+
+### 14. Validacion: datos invalidos -> 400 Bad Request
+POST http://localhost:8080/api/cursos
+Content-Type: application/json
+
+{
+  "nombreCurso": "",
+  "duracionHoras": 0,
+  "fechaInicio": "2020-01-01T08:00:00",
+  "fechaFin": "2020-01-02T08:00:00",
+  "lugar": "Aula",
+  "cupoMaximo": 0,
+  "idInstructor": 1
+}
