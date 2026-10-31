@@ -106,7 +106,7 @@ Los errores usan el formato ProblemDetail:
 
 | id | Usuario | Correo | Rol |
 |---:|---|---|---|
-| 1 | Laura Mendoza | laura.mendoza@ecm.com | ADMIN |
+| 1 | Elkin Caicedo | elkin.caicedo@ecm.com | ADMIN |
 | 2 | Carlos Ortega (instructor 1) | carlos.ortega@ecm.com | INSTRUCTOR |
 | 3 | Maria Perez | maria.perez@correo.com | ASISTENTE |
 | 4 | Pedro Martinez (instructor 2) | pedro.martinez@ecm.com | INSTRUCTOR |

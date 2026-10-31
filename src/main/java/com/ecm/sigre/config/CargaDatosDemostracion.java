@@ -55,7 +55,7 @@ public class CargaDatosDemostracion implements CommandLineRunner {
         }
 
         // Usuarios (ids 1, 2 y 3 iguales a los del frontend)
-        Usuario laura = usuario("Laura Mendoza", "laura.mendoza@ecm.com", NombreRol.ADMIN, "1047000001");
+        Usuario elkin = usuario("Elkin Caicedo", "elkin.caicedo@ecm.com", NombreRol.ADMIN, "1047000001");
         Usuario carlos = usuario("Carlos Ortega", "carlos.ortega@ecm.com", NombreRol.INSTRUCTOR, "1047000002");
         Usuario maria = usuario("Maria Perez", "maria.perez@correo.com", NombreRol.ASISTENTE, "1047000003");
         Usuario pedro = usuario("Pedro Martinez", "pedro.martinez@ecm.com", NombreRol.INSTRUCTOR, "1047000004");
